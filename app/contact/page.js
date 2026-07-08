@@ -8,17 +8,45 @@ export default function ContactPage() {
   const { t } = useLanguage();
   const contact = t.contact;
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Message from ${form.name || "Website"}`);
-    const body = encodeURIComponent(
-      `${form.message}\n\n---\n${form.name} <${form.email}>`
-    );
-    window.location.href = `mailto:mmd.2007.1385@gmail.com?subject=${subject}&body=${body}`;
+
+    setLoading(true);
+    setStatus("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setStatus("✅ پیام شما با موفقیت ارسال شد.");
+
+        setForm({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        setStatus("❌ ارسال پیام ناموفق بود.");
+      }
+    } catch (err) {
+      setStatus("❌ خطا در ارتباط با سرور.");
+    }
+
+    setLoading(false);
   };
 
   const infoItems = [
@@ -124,7 +152,7 @@ export default function ContactPage() {
                 </svg>
                 GitHub
               </a>
-              
+
               <a
                 href="https://jobvision.ir/cv/36649554-161637"
                 className="inline-flex items-center gap-2 rounded-md border border-line-light px-4 py-2 text-sm font-medium text-ink-light transition-colors hover:border-accent hover:text-accent dark:border-line-dark dark:text-ink-dark"
@@ -154,7 +182,10 @@ export default function ContactPage() {
               </p>
 
               <div>
-                <label htmlFor="name" className="mb-1 block text-sm font-medium text-ink-light dark:text-ink-dark">
+                <label
+                  htmlFor="name"
+                  className="mb-1 block text-sm font-medium text-ink-light dark:text-ink-dark"
+                >
                   {contact.formName}
                 </label>
                 <input
@@ -169,7 +200,10 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="email" className="mb-1 block text-sm font-medium text-ink-light dark:text-ink-dark">
+                <label
+                  htmlFor="email"
+                  className="mb-1 block text-sm font-medium text-ink-light dark:text-ink-dark"
+                >
                   {contact.formEmail}
                 </label>
                 <input
@@ -185,7 +219,10 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="message" className="mb-1 block text-sm font-medium text-ink-light dark:text-ink-dark">
+                <label
+                  htmlFor="message"
+                  className="mb-1 block text-sm font-medium text-ink-light dark:text-ink-dark"
+                >
                   {contact.formMessage}
                 </label>
                 <textarea
@@ -201,14 +238,21 @@ export default function ContactPage() {
 
               <button
                 type="submit"
-                className="w-full  rounded-md bg-ink-light py-2.5 text-sm font-semibold text-bg-light transition-transform hover:-translate-y-0.5 dark:bg-accent dark:text-bg-dark sm:w-auto sm:px-6"
+                disabled={loading}
+                className="w-full rounded-md bg-ink-light py-2.5 text-sm font-semibold text-bg-light transition disabled:opacity-60 dark:bg-accent dark:text-bg-dark sm:w-auto sm:px-6"
               >
-                {contact.formSubmit}
+                {loading ? "در حال ارسال..." : contact.formSubmit}
               </button>
 
-              <p className="text-xs text-muted-light dark:text-muted-dark">
-                {contact.formNote}
-              </p>
+              {status && (
+                <p
+                  className={`mt-3 text-sm ${
+                    status.includes("✅") ? "text-green-600" : "text-red-600"
+                  }`}
+                >
+                  {status}
+                </p>
+              )}
             </form>
           </Reveal>
         </div>
