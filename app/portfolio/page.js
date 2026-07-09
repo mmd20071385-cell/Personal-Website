@@ -3,9 +3,10 @@
 import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
+import { projects } from "@/lib/projects";
 
 export default function PortfolioPage() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const portfolio = t.portfolio;
 
   return (
@@ -20,10 +21,16 @@ export default function PortfolioPage() {
       </Reveal>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {portfolio.projects.map((project, i) => (
-          <Reveal key={project.title} delay={i * 70}>
+        {projects.map((project, i) => (
+          <Reveal key={project.en.title} delay={i * 70}>
             <ProjectCard
-              project={project}
+              project={{
+                title: project[lang].title,
+                desc: project[lang].desc,
+                tag: project.tag,
+                url: project.url,
+                image: project.image,
+              }}
               viewLabel={portfolio.viewProject}
               comingSoon={portfolio.comingSoon}
             />
