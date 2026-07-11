@@ -138,11 +138,11 @@ export default function HomePage() {
       {/* CTA band */}
       <section className="mx-auto max-w-5xl px-5 pb-20">
         <Reveal>
-          <div className="rounded-xl bg-ink-light px-7 py-10 text-center dark:bg-surface-dark dark:border dark:border-accent/30">
-            <h2 className="mb-2 text-2xl font-bold text-bg-light dark:text-ink-dark">
+          <div className=" rounded-xl bg-surface-light px-7 py-10 text-center dark:bg-surface-dark dark:border dark:border-accent/30">
+            <h2 className="mb-2 text-2xl font-bold text-ink-light dark:text-ink-dark">
               {home.ctaBandTitle}
             </h2>
-            <p className="mx-auto mb-6 max-w-md text-sm text-bg-light/70 dark:text-muted-dark">
+            <p className="mx-auto mb-6 max-w-md text-sm text-muted-light dark:text-muted-dark">
               {home.ctaBandDesc}
             </p>
             <Link
