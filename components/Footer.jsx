@@ -10,7 +10,6 @@ export default function Footer() {
   const links = [
     { href: "/", label: t.nav.home },
     { href: "/about", label: t.nav.about },
-    { href: "/portfolio", label: t.nav.portfolio },
     { href: "/contact", label: t.nav.contact },
   ];
 

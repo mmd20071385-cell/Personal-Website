@@ -29,7 +29,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/portfolio"
+                href="https://www.linkedin.com/in/mmd-h-gd/"
                 className="rounded-md bg-ink-light px-5 py-2.5 text-sm font-semibold text-bg-light transition-transform hover:-translate-y-0.5 dark:bg-accent dark:text-bg-dark"
               >
                 {home.ctaPrimary}

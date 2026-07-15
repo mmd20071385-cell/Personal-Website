@@ -154,7 +154,7 @@ export default function ContactPage() {
               </a>
 
               <a
-                href="https://jobvision.ir/cv/36649554-161637"
+                href="https://www.linkedin.com/in/mmd-h-gd/"
                 className="inline-flex items-center gap-2 rounded-md border border-line-light px-4 py-2 text-sm font-medium text-ink-light transition-colors hover:border-accent hover:text-accent dark:border-line-dark dark:text-ink-dark"
               >
                 <svg
@@ -165,7 +165,7 @@ export default function ContactPage() {
                 >
                   <path d="" />
                 </svg>
-                jobvision
+                linkedin
               </a>
             </div>
           </Reveal>
